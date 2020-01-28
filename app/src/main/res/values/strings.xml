@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">App05_Preferences_format</string>
+    <string name="kakikomi">書込文字</string>
+    <string name="input_text" />
+    <string name="add_button">書込ボタン</string>
+    <string name="reed_button">読込ボタン</string>
 </resources>

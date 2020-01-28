@@ -19,18 +19,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 書込ボタンをリスナ登録
         Button writeButton = (Button)findViewById(R.id.button1);
         writeButton.setOnClickListener(this);
+
+        // 読込ボタンをリスナ登録
+        Button readButton = (Button)findViewById(R.id.button2);
+        readButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {        // ボタンが押された時に呼び出されるメソッド
-        int id = view.getId();      // 押されたボタンのリソースIDを取得
+        int id = view.getId();              // 押されたボタンのリソースIDを取得
 
-        if (id == R.id.button1) {       // 書込みボタンを押した時
-            writeFile();        // 書込み処理を行う
+        if (id == R.id.button1) {           // 書込みボタンを押した時
+            writeFile();                    // 書込み処理を行う
+        } else if (id == R.id.button2) {    // 読込ボタンを押した時の処理
+            readFile();                     // 読込処理を行う
         }
     }
 
-    private void writeFile() {                          // 書込み処理メソッドを作成
+    private void writeFile() {                      // 書込み処理メソッドを作成
         EditText edit = (EditText)findViewById(R.id.editText1);
         String moji = edit.getText().toString();    // テキストボックスから文字列を取得
 
@@ -50,8 +56,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast t = Toast.makeText(this, result, Toast.LENGTH_SHORT);
         t.show();
 
-        edit.setText("");       // テキストボックスの中を空っぽにする
+        edit.setText("");                       // テキストボックスの中を空っぽにする
     }
 
+    private void readFile() {
+        // データを読み込めるようにSharedPreferencesオブジェクトを生成する
+        SharedPreferences sp = getSharedPreferences("file", MODE_PRIVATE);
 
+        // 名前が「MOJI_DATA」のデータを取得するが、無い場合は「登録データがありません。」と表示
+        String result = sp.getString("MOJI_DATA", "登録データがありません。");
+
+        // トーストで読込み結果を表示
+        Toast t = Toast.makeText(this, result, Toast.LENGTH_SHORT);
+        t.show();
+    }
 }
